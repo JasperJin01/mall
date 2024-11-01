@@ -95,6 +95,8 @@ java.sql.SQLException: Access denied for user 'root'@'211.161.157.209' (using pa
 
 ```
 
+**<font color=red>解决问题：权限设置有问题，新创建了一个别的用户，就好使了</font>**
+
 
 
 很奇怪的一个问题，反正我是不理解，也没有在网上找到合理的解释。
@@ -119,7 +121,7 @@ java.sql.SQLException: Access denied for user 'root'@'211.161.157.209' (using pa
 
 
 
-🔴 保留的问题：renren远程调用数据库失败
+
 
 
 
@@ -184,5 +186,49 @@ export PYTHON=/Users/jmjin/opt/anaconda3/bin/python
 
 
 
+
+
+## Git pull失败
+
+失败描述：每次git pull提交时，会要求登录github。但是登录github后，依旧无法pull成功。
+
+```shell
+git remote -v
+# origin  https://github.com/JasperJin01/mall.git (fetch)
+# origin  https://github.com/JasperJin01/mall.git (push)
+```
+
+输出表示远程仓库 URL 使用的是 **HTTPS**，而不是 **SSH**。
+
+使用SSH方式进行认证和操作，需要将远程仓库 URL 设置为 SSH 格式。
+
+```shell
+# 将当前的 HTTPS URL 更改为 SSH URL
+git remote set-url origin git@github.com:JasperJin01/mall.git
+
+# 再次确认是否更新成功：
+git remote -v
+# origin  git@github.com:JasperJin01/mall.git (fetch)
+# origin  git@github.com:JasperJin01/mall.git (push)
+```
+
+
+
+
+
+
+
 ## generator 快速生成CRUD代码
+
+
+
+生成的代码有很多依赖
+
+创建mall-common，用来放一些公用的包，让每个微服务都依赖它
+
+
+
+在product项目的pom.xml添加一个依赖，依赖common项目
+
+
 
