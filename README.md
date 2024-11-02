@@ -1,4 +1,4 @@
-# mall
+# 项目初始化
 
 ## 创建每个微服务模块
 
@@ -231,4 +231,69 @@ git remote -v
 在product项目的pom.xml添加一个依赖，依赖common项目
 
 
+
+### 测试项目报错
+
+```java
+package com.guigu.mall.product;
+
+import com.guigu.mall.product.entity.BrandEntity;
+import com.guigu.mall.product.service.BrandService;
+import org.junit.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
+
+// FIXME 这里必须有 RunWith
+@RunWith(SpringRunner.class)
+@SpringBootTest
+public class MallProductApplicationTests {
+
+    @Autowired
+    BrandService brandService;
+
+    // NOTE 这个test导包要注意一下，`import org.junit.Test;`, 不要导错了
+    @Test
+    public void contextLoads() {
+        BrandEntity brandEntity = new BrandEntity();
+        brandEntity.setLogo("华为");
+        brandService.save(brandEntity);
+        System.out.println("保存成功");
+    }
+}
+```
+
+
+
+```
+java.lang.IllegalArgumentException: Property 'sqlSessionFactory' or 'sqlSessionTemplate' are required
+```
+
+
+
+<font color=red>代码是没有问题的！错误是版本问题。在pom.xml(mall-product)中设置的Springboot的版本，最开始为3就会报错，设为2就不会报错！</font>
+
+
+
+
+
+
+
+# 注册服务与远程调用
+
+
+
+
+
+
+
+# 配置中心
+
+
+
+
+
+# API 网关
 
