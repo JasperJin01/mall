@@ -286,9 +286,6 @@ java.lang.IllegalArgumentException: Property 'sqlSessionFactory' or 'sqlSessionT
 * 🔴 半保留的问题。在UndoLogEntity中rollbackInfo类型由*Longblob*改成了byte[]，同时添加了@Lob注解，引入了import jakarta.persistence.Lob;包，引入了jakarta.persistence-api 依赖。
 * `<dependencyManagement>` 中的依赖不会自动引入，只有在子模块中显式添加 `<dependency>` 引用时，才会生效。
 * 想把junit依赖放到common里面，但是发现mybatisplus会报错。最终发现是因为自己的mybatisplus没有声明版本。（这是一种语法错误，在maven clean的时候都会报错）
-* 
-
-
 
 
 
@@ -296,7 +293,43 @@ java.lang.IllegalArgumentException: Property 'sqlSessionFactory' or 'sqlSessionT
 
 # 注册服务与远程调用
 
+Nacos用来做注册中心和配置中心
 
+<font color=red>TODO：老师找的nacos的文档是从哪里找到的啊？好多年之前的链接了现在好像都没有了，有空查找一下！</font>
+
+首先要在pom.xml中导入相关依赖
+
+```xml
+<dependency>
+    <groupId>com.alibaba.cloud</groupId>
+    <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+    <version>2.1.0.RELEASE</version>
+</dependency>
+```
+
+
+
+在Ubuntu系统安装nacos server
+
+```shell
+java -version
+# 没有java，按照命令提示安装java（我安装的是jdk8）
+
+# 下载nacos
+wget https://github.com/alibaba/nacos/releases/download/2.2.0/nacos-server-2.2.0.zip
+
+# 解压nacos
+unzip nacos-server-2.2.0.zip
+cd nacos/bin
+# readlink: missing operand
+# Try 'readlink --help' for more information.
+# dirname: missing operand
+# Try 'dirname --help' for more information.
+# ERROR: Please set the JAVA_HOME variable in your environment, We need java(x64)! jdk8 or later is better! !!
+
+sh startup.sh 
+###### 最后启动失败了，不知道
+```
 
 
 
