@@ -22,7 +22,7 @@
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>3.2.0</version>
+            <version>3.3.1</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -50,12 +50,21 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.21</version>
         </dependency>
+
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
             <version>2.5</version>
             <scope>provided</scope><!-- TODO 目标环境已存在，打包的时候就不会带上它？ -->
         </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
 </project>

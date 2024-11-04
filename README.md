@@ -279,6 +279,19 @@ java.lang.IllegalArgumentException: Property 'sqlSessionFactory' or 'sqlSessionT
 
 
 
+生成过程中遇到的问题：
+
+* Junit版本和对应的import @Test包不对。可能是sb项目默认sb3的原因吧，Tests模版中的@Test是`org.junit.jupiter.api.Test`。一定要改成`org.junit.Test`。
+* 还有一些版本的问题，例如在pom.xml中springboot的版本，java的版本都改正确，避免出问题。（之前的报错bug就是配置文件中版本为sb3导致的）
+* 🔴 半保留的问题。在UndoLogEntity中rollbackInfo类型由*Longblob*改成了byte[]，同时添加了@Lob注解，引入了import jakarta.persistence.Lob;包，引入了jakarta.persistence-api 依赖。
+* `<dependencyManagement>` 中的依赖不会自动引入，只有在子模块中显式添加 `<dependency>` 引用时，才会生效。
+* 想把junit依赖放到common里面，但是发现mybatisplus会报错。最终发现是因为自己的mybatisplus没有声明版本。（这是一种语法错误，在maven clean的时候都会报错）
+* 
+
+
+
+
+
 
 
 # 注册服务与远程调用
