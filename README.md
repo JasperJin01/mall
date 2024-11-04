@@ -293,6 +293,8 @@ java.lang.IllegalArgumentException: Property 'sqlSessionFactory' or 'sqlSessionT
 
 # 注册服务与远程调用
 
+## 安装Nacos
+
 Nacos用来做注册中心和配置中心
 
 <font color=red>TODO：老师找的nacos的文档是从哪里找到的啊？好多年之前的链接了现在好像都没有了，有空查找一下！</font>
@@ -330,6 +332,28 @@ cd nacos/bin
 sh startup.sh 
 ###### 最后启动失败了，不知道
 ```
+
+
+
+于是使用docker
+
+```shell
+docker pull nacos/nacos-server
+
+docker run -d --name nacos -p 8848:8848 -e MODE=standalone nacos/nacos-server
+```
+
+
+
+
+
+## 将一个模块服务注册到Nacos-server
+
+又是一个debug了很长时间的问题。实际上还是版本不匹配的问题。
+
+简单说来，springboot必须选择等于或高于2.6的版本，要不然会抛出各种错误。
+
+
 
 
 

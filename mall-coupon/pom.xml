@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.2.6.RELEASE</version>
+        <version>2.6.4</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.guigu.mall</groupId>
@@ -28,7 +28,8 @@
     </scm>
     <properties>
         <java.version>1.8</java.version>
-        <spring-cloud.version>2023.0.3</spring-cloud.version>
+        <spring-cloud.version>2021.0.9</spring-cloud.version>
+        <!-- 这个版本是在 https://spring.io/projects/spring-cloud#learn 找的 -->
     </properties>
     <dependencies>
         <dependency>

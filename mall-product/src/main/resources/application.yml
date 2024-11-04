@@ -2,12 +2,16 @@
 spring:
   application:
     name: mall-product
+    # NOTE 必须要有 spring.application.name才能成功在nacos完成服务的注册
   datasource:
     username: admin
     password: admin
     url: jdbc:mysql://120.26.83.211:3456/gulimall_pms?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
     driver-class-name: com.mysql.cj.jdbc.Driver
-
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 172.16.251.130:8848
 
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**/*.xml
