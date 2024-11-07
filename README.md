@@ -516,7 +516,131 @@ https://blog.csdn.net/weixin_44457062/article/details/122950232
 
 
 
+
+
+## Feign远程调用
+
+给一个模块引入open-feign依赖，他就有了调用其他服务的能力。
+
+编写一个接口，告诉
+
+
+
+**编写Feign代码后member无法运行服务，报错：**
+
+错误提示 `No Feign Client for loadBalancing defined. Did you forget to include spring-cloud-starter-loadbalancer?` 表明在使用 Feign 客户端进行负载均衡时，缺少 `spring-cloud-starter-loadbalancer` 依赖。
+
+在 Spring Cloud 2020 及更高版本中，OpenFeign 默认依赖 `spring-cloud-starter-loadbalancer` 作为负载均衡组件。如果没有添加这个依赖，Feign 在请求服务时无法启用负载均衡，从而导致上述错误。
+
+```xml
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-loadbalancer</artifactId>
+</dependency>
+```
+
+
+
+**启动member服务，调用远程服务报错（netflix,ribbon相关报错）：**
+
+java.lang.AbstractMethodError: Receiver class org.springframework.cloud.netflix.ribbon.RibbonLoadBalancerClient does not define or inherit an implementation of the resolved method 'abstract org.springframework.cloud.client.ServiceInstance choose(java.lang.String, org.springframework.cloud.client.loadbalancer.Request)' of interface org.springframework.cloud.client.loadbalancer.ServiceInstanceChooser.
+
+解决方法：参考[文章](https://blog.csdn.net/cainiao805/article/details/132444510)（感谢作者！）
+
+出现这个问题是因为导入的 spring-cloud-loadbalancer后nacos中 pring-cloud-starter-netflix-ribbon会与它冲突，造成loadbalanc包失效。
+
+给注册中心依赖加入不适用ribbon进行负载均衡。
+
+```xml
+<dependency>
+    <groupId>com.alibaba.cloud</groupId>
+    <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+    <!--不使用Ribbon进行客户端负载均衡-->
+    <exclusions>
+        <exclusion>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
+        </exclusion>
+    </exclusions>
+</dependency>
+```
+
+
+
+
+
 # 配置中心
+
+使用nacos作为配置中心
+
+配置中心报错NacosConfigProperties : create config service error!properties=NacosConfigPropertie 
+
+引入依赖：
+
+```xml
+<dependency>
+     <groupId>org.springframework.cloud</groupId>
+     <artifactId>spring-cloud-starter-bootstrap</artifactId>
+     <version>3.0.3</version>
+</dependency>
+```
+
+参考：[CSDN谷粒商城整合配置中心报错](https://blog.csdn.net/weixin_42198690/article/details/132574167)，[Spring nacos config 启动无效原因分析](https://blog.csdn.net/jonhy_love/article/details/120316550)
+
+
+
+
+
+```java
+/**
+ * 1、如何使用Nacos作为配置中心统一管理配置
+ *
+ * 1）、引入依赖，
+ *         <dependency>
+ *             <groupId>com.alibaba.cloud</groupId>
+ *             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+ *         </dependency>
+ * 2）、创建一个bootstrap.properties。
+ *      bootstrap.properties是在SpringBoot中的设定，会比application.properties更早的进行载入
+ *      spring.application.name=mall-coupon
+ *      spring.cloud.nacos.config.server-addr=127.0.0.1:8848
+ * 3）、需要给配置中心默认添加一个叫 数据集（Data Id）mall-coupon.properties。
+ *     默认规则，应用名.properties
+ * 4）、给 应用名.properties 添加任何配置
+ * 5）、动态获取配置。
+ *      @RefreshScope：动态获取并刷新配置
+ *      @Value("${配置项的名}")：获取到配置。
+ *      如果配置中心和当前应用的配置文件中都配置了相同的项，优先使用配置中心的配置。
+ *
+ * 2、细节
+ *  1）、命名空间：配置隔离；
+ *      默认：public(保留空间)；默认新增的所有配置都在public空间。
+ *      1、开发，测试，生产：利用命名空间来做环境隔离。
+ *         注意：在bootstrap.properties；配置上，需要使用哪个命名空间下的配置，
+ *         spring.cloud.nacos.config.namespace=9de62e44-cd2a-4a82-bf5c-95878bd5e871
+ *      2、每一个微服务之间互相隔离配置，每一个微服务都创建自己的命名空间，只加载自己命名空间下的所有配置
+ *
+ *  2）、配置集：所有的配置的集合
+ *
+ *  3）、配置集ID：类似文件名。
+ *      Data ID：类似文件名
+ *
+ *  4）、配置分组：
+ *      默认所有的配置集都属于：DEFAULT_GROUP；
+ *      1111，618，1212
+ *
+ * 项目中的使用：每个微服务创建自己的命名空间，使用配置分组区分环境，dev，test，prod
+ *
+ * 3、同时加载多个配置集
+ * 1)、微服务任何配置信息，任何配置文件都可以放在配置中心中
+ * 2）、只需要在bootstrap.properties说明加载配置中心中哪些配置文件即可
+ * 3）、@Value，@ConfigurationProperties。。。
+ * 以前SpringBoot任何方法从配置文件中获取值，都能使用。
+ * 配置中心有的优先使用配置中心中的，
+ *
+ *
+ */
+```
 
 
 

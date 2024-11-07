@@ -3,6 +3,7 @@ package com.guigu.mall.member.controller;
 import java.util.Arrays;
 import java.util.Map;
 
+import com.guigu.mall.member.feign.AlphaFeignService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,6 +30,20 @@ import com.guigu.common.utils.R;
 public class MemberController {
     @Autowired
     private MemberService memberService;
+
+    @Autowired
+    AlphaFeignService feignService;
+
+    @RequestMapping("/coupons")
+    public R test() {
+        MemberEntity memberEntity = new MemberEntity();
+        memberEntity.setNickname("王66");
+        R memberCoupons = feignService.membercoupons();
+
+        return R.ok().put("member", memberEntity)
+                .put("coupons", memberCoupons.get("coupons"));
+    }
+
 
     /**
      * 列表
