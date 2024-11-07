@@ -648,5 +648,37 @@ java.lang.AbstractMethodError: Receiver class org.springframework.cloud.netflix.
 
 # API 网关
 
+## API 创建网关
 
-git提交测试
+
+
+
+
+
+
+
+
+## 实现网关功能的跳转测试
+
+
+
+
+
+报错Unable to load io.netty.resolver.dns.macos.MacOSDnsServerAddressStreamProvider
+
+```
+2024-11-08 00:18:39.501 ERROR 20841 --- [ctor-http-nio-2] i.n.r.d.DnsServerAddressStreamProviders  : Unable to load io.netty.resolver.dns.macos.MacOSDnsServerAddressStreamProvider, fallback to system defaults. This may result in incorrect DNS resolutions on MacOS.
+```
+
+这个报错和mac系统arm有关，解决办法添加一个依赖就好了：
+
+```xml
+<dependency>
+    <groupId>io.netty</groupId>
+    <artifactId>netty-resolver-dns-native-macos</artifactId>
+    <version>4.1.75.Final</version>
+    <classifier>osx-aarch_64</classifier>
+    <scope>runtime</scope>
+</dependency>
+```
+
