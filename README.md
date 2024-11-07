@@ -509,6 +509,13 @@ https://blog.csdn.net/weixin_44457062/article/details/122950232
 
 
 
+报错：Class not found exception
+`org.springframework.cloud.client.loadbalancer.AsyncLoadBalancerAutoConfiguration` 类未找到
+
+是因为springcloud版本和SpringBoot版本不匹配导致。
+
+
+
 # 配置中心
 
 
