@@ -682,3 +682,54 @@ java.lang.AbstractMethodError: Receiver class org.springframework.cloud.netflix.
 </dependency>
 ```
 
+参考：https://likefacai.com/archives/macos-m1-yun-xing-unable-to-load-io.netty.resolver.dns.macoscuo-wu-chu-li
+
+
+
+
+
+# 前端和vue介绍
+
+DOM操作是什么？
+
+vue主要讲解的就是一个“双绑定”，也就是数据发生了变化，页面可以跟着变；或者页面发生了变化（用户填入的数据）数据也可以跟着变（不需要向之前jQuery写很多DOM操作）。
+
+
+
+```shell
+npm init -y # 在当前文件夹执行，让npm初始化项目
+npm install vue
+```
+
+
+
+```html
+<div id="app">
+    <h1> {{name}}, 非常帅</h1> <!-- 从数据区找到name -->
+</div>
+
+
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm =  new Vue({
+        el: "#app", // id 是元素，#是元素选择器
+        data: {
+            name: "张三"
+        }
+    });
+</script>
+```
+
+
+
+
+```
+vm.name="李四"
+```
+
+
+
+
+
+# 三级分类功能
+
