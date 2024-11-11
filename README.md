@@ -152,20 +152,20 @@ skip-name-resolve
 **聚合服务（在pom.xml文件中）**
 
 ```xml
-    <groupId>com.guigu.mall</groupId>
-    <artifactId>mall</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>mall</name>
-    <description>聚合服务</description>
-    <packaging>pom</packaging>
+<groupId>com.guigu.mall</groupId>
+<artifactId>mall</artifactId>
+<version>0.0.1-SNAPSHOT</version>
+<name>mall</name>
+<description>聚合服务</description>
+<packaging>pom</packaging>
 
-    <modules>
-        <module>mall-coupon</module>
-        <module>mall-member</module>
-        <module>mall-order</module>
-        <module>mall-product</module>
-        <module>mall-ware</module>
-    </modules>
+<modules>
+    <module>mall-coupon</module>
+    <module>mall-member</module>
+    <module>mall-order</module>
+    <module>mall-product</module>
+    <module>mall-ware</module>
+</modules>
 
 ```
 
@@ -732,4 +732,12 @@ vm.name="李四"
 
 
 # 三级分类功能
+
+
+
+
+
+
+
+# JSR303
 
